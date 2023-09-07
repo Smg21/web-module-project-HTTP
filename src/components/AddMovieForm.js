@@ -14,7 +14,7 @@ const AddMovieForm = (props) => {
 		director: "",
 		genre: "",
 		metascore: 0,
-		description: ""
+		description: "",
 	});
 
 	const handleChange = (e) => {
