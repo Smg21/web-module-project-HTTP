@@ -1,10 +1,10 @@
-
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import MovieList from './components/MovieList';
 import Movie from './components/Movie';
 import MovieHeader from './components/MovieHeader';
 import FavoriteMovieList from './components/FavoriteMovieList';
+import EditMovieForm from "./components/EditMovieForm";
 import axios from 'axios';
 
 const App = (props) => {
@@ -22,33 +22,24 @@ const App = (props) => {
   }, []);
 
   const addToFavorites = (movie) => {
-
     const isAlreadyFavorite = favoriteMovies.some(favMovie => favMovie.id === movie.id);
 
     if (!isAlreadyFavorite) {
-
       setFavoriteMovies(prevFavorites => [...prevFavorites, movie]);
     }
   };
 
   return (
     <div>
-      <nav className="navbar navbar-dark bg-dark">
-        <span className="navbar-brand" >HTTP / CRUD Module Project</span>
-      </nav>
-
+      {/* Navbar and other components */}
       <div className="container">
         <MovieHeader />
-        <div className="row ">
+        <div className="row">
           <FavoriteMovieList favoriteMovies={favoriteMovies} />
-
           <Routes>
-            <Route path="movies/edit/:id" />
-
-            <Route path="movies/:id" />
-
+            <Route path="movies/edit/:id" element={<EditMovieForm setMovies={setMovies} />} />
+            <Route path="movies/:id" element={<Movie addToFavorites={addToFavorites} />} />
             <Route path="movies" element={<MovieList movies={movies} addToFavorites={addToFavorites} />} />
-
             <Route path="/" element={<Navigate to="/movies" />} />
           </Routes>
         </div>
